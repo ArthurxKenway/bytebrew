@@ -4,16 +4,23 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ByteBrew Security Dashboard</title>
+    <link rel="icon" type="image/png" href="favicon.png">
     <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <script>
         tailwind.config = {
             theme: {
                 extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
                     colors: {
                         brand: {
-                            900: '#1a202c',
-                            800: '#2d3748',
-                            700: '#4a5568',
+                            gold: '#D9A066',
+                            red: '#D85858',
+                            dark: '#120C0B',
+                            light: '#E5E7EB',
+                            panel: 'rgba(18, 12, 11, 0.8)',
                         }
                     }
                 }
@@ -21,99 +28,106 @@
         }
     </script>
     <style>
-        body { background-color: #0f172a; color: #e2e8f0; }
+        body { background-color: #120C0B; color: #E5E7EB; }
         .glass-panel {
-            background: rgba(30, 41, 59, 0.7);
+            background: rgba(255, 255, 255, 0.03);
             backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(217, 160, 102, 0.1);
+        }
+        .accent-glow {
+            box-shadow: 0 0 20px rgba(217, 160, 102, 0.1);
         }
     </style>
 </head>
-<body class="font-sans antialiased">
+<body class="font-sans antialiased min-h-screen flex flex-col">
 
-    <!-- Navbar -->
-    <nav class="border-b border-gray-800 bg-gray-900/50 backdrop-blur-md sticky top-0 z-50">
+    <div class="bg-[#120C0B] text-[#D9A066] text-xs font-bold py-1 text-center tracking-widest uppercase border-b border-[#D9A066]/20">
+        <div class="flex items-center justify-center space-x-2">
+            <span class="relative flex h-2 w-2">
+              <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#D9A066] opacity-75"></span>
+              <span class="relative inline-flex rounded-full h-2 w-2 bg-[#D9A066]"></span>
+            </span>
+            <span>System Active</span>
+        </div>
+    </div>
+
+    <nav class="bg-[#D9A066] shadow-md sticky top-0 z-50">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex items-center justify-between h-16">
-                <div class="flex items-center">
-                    <span class="text-xl font-bold text-blue-500">🛡️ ByteBrew</span>
-                    <span class="ml-2 text-sm text-gray-400">Security Platform</span>
+            <div class="flex items-center justify-between h-20">
+                <div class="flex-shrink-0 flex items-center">
+                    <img src="byte_brew_fav.png" alt="ByteBrew Logo" class="h-12 w-auto object-contain">
                 </div>
-                <div class="flex items-center space-x-4">
-                    <div class="flex items-center space-x-2">
-                        <span class="h-2 w-2 rounded-full bg-green-500 animate-pulse"></span>
-                        <span class="text-xs text-green-400">System Active</span>
-                    </div>
+
+                <div class="flex items-center">
+                    <p class="text-[#120C0B] text-sm font-medium italic tracking-wide">
+                        "The difference between a professional and an amateur is that a professional knows about Honeypot"
+                    </p>
                 </div>
             </div>
         </div>
     </nav>
 
-    <!-- Main Content -->
-    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <main class="flex-grow max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 w-full">
         
-        <!-- Stats Grid -->
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-            <!-- Total Attacks -->
-            <div class="glass-panel rounded-xl p-6">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
+            <div class="glass-panel rounded-xl p-6 accent-glow transition hover:border-[#D9A066]/30">
                 <div class="flex items-center justify-between">
                     <div>
-                        <p class="text-sm font-medium text-gray-400">Total Attacks Detected</p>
-                        <p class="text-3xl font-bold text-white mt-1" id="total-attacks">--</p>
+                        <p class="text-sm font-medium text-gray-400 uppercase tracking-wider">Total Attacks</p>
+                        <p class="text-4xl font-bold text-white mt-2" id="total-attacks">--</p>
                     </div>
-                    <div class="p-3 bg-red-500/10 rounded-lg">
-                        <svg class="w-6 h-6 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
+                    <div class="p-3 bg-[#D85858]/10 rounded-lg border border-[#D85858]/20">
+                        <svg class="w-8 h-8 text-[#D85858]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
                     </div>
                 </div>
             </div>
 
-            <!-- Unique Attackers -->
-            <div class="glass-panel rounded-xl p-6">
+            <div class="glass-panel rounded-xl p-6 accent-glow transition hover:border-[#D9A066]/30">
                 <div class="flex items-center justify-between">
                     <div>
-                        <p class="text-sm font-medium text-gray-400">Unique Attackers</p>
-                        <p class="text-3xl font-bold text-white mt-1" id="unique-attackers">--</p>
+                        <p class="text-sm font-medium text-gray-400 uppercase tracking-wider">Unique Attackers</p>
+                        <p class="text-4xl font-bold text-white mt-2" id="unique-attackers">--</p>
                     </div>
-                    <div class="p-3 bg-blue-500/10 rounded-lg">
-                        <svg class="w-6 h-6 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
+                    <div class="p-3 bg-[#D9A066]/10 rounded-lg border border-[#D9A066]/20">
+                        <svg class="w-8 h-8 text-[#D9A066]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
                     </div>
                 </div>
             </div>
 
-            <!-- Active Agents -->
-            <div class="glass-panel rounded-xl p-6">
+            <div class="glass-panel rounded-xl p-6 accent-glow transition hover:border-[#D9A066]/30">
                 <div class="flex items-center justify-between">
                     <div>
-                        <p class="text-sm font-medium text-gray-400">Active Agents</p>
-                        <p class="text-3xl font-bold text-white mt-1">1</p>
+                        <p class="text-sm font-medium text-gray-400 uppercase tracking-wider">Active Agents</p>
+                        <p class="text-4xl font-bold text-white mt-2">1</p>
                     </div>
-                    <div class="p-3 bg-green-500/10 rounded-lg">
-                        <svg class="w-6 h-6 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14M5 12a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v4a2 2 0 01-2 2M5 12a2 2 0 00-2 2v4a2 2 0 002 2h14a2 2 0 002-2v-4a2 2 0 00-2-2m-2-4h.01M17 16h.01"></path></svg>
+                    <div class="p-3 bg-green-500/10 rounded-lg border border-green-500/20">
+                        <svg class="w-8 h-8 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M5 12h14M5 12a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v4a2 2 0 01-2 2M5 12a2 2 0 00-2 2v4a2 2 0 002 2h14a2 2 0 002-2v-4a2 2 0 00-2-2m-2-4h.01M17 16h.01"></path></svg>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- Live Feed -->
-        <div class="glass-panel rounded-xl overflow-hidden">
-            <div class="px-6 py-4 border-b border-gray-700 flex justify-between items-center">
-                <h3 class="text-lg font-semibold text-white">Live Threat Feed</h3>
-                <span class="text-xs text-gray-500 uppercase tracking-wider">Real-time</span>
+        <div class="glass-panel rounded-xl overflow-hidden border border-[#D9A066]/10">
+            <div class="px-6 py-5 border-b border-[#D9A066]/10 flex justify-between items-center bg-[#D9A066]/5">
+                <div class="flex items-center space-x-2">
+                    <span class="h-2 w-2 rounded-full bg-[#D85858] animate-pulse"></span>
+                    <h3 class="text-lg font-semibold text-white tracking-wide">Live Threat Feed</h3>
+                </div>
+                <span class="text-xs text-[#D9A066] uppercase tracking-widest font-medium">Real-time</span>
             </div>
             <div class="overflow-x-auto">
                 <table class="w-full text-left">
-                    <thead class="bg-gray-800/50 text-gray-400 text-xs uppercase">
+                    <thead class="bg-black/20 text-gray-400 text-xs uppercase tracking-wider">
                         <tr>
-                            <th class="px-6 py-3">Timestamp</th>
-                            <th class="px-6 py-3">Source IP</th>
-                            <th class="px-6 py-3">Type</th>
-                            <th class="px-6 py-3">Credentials</th>
+                            <th class="px-6 py-4 font-medium">Timestamp</th>
+                            <th class="px-6 py-4 font-medium">Source IP</th>
+                            <th class="px-6 py-4 font-medium">Type</th>
+                            <th class="px-6 py-4 font-medium">Credentials Captured</th>
                         </tr>
                     </thead>
-                    <tbody class="divide-y divide-gray-700 text-sm" id="logs-table-body">
-                        <!-- Rows will be injected here -->
+                    <tbody class="divide-y divide-[#D9A066]/10 text-sm" id="logs-table-body">
                         <tr>
-                            <td class="px-6 py-4 text-gray-500" colspan="4">Loading logs...</td>
+                            <td class="px-6 py-8 text-gray-500 text-center italic" colspan="4">Waiting for incoming attacks...</td>
                         </tr>
                     </tbody>
                 </table>
@@ -121,6 +135,12 @@
         </div>
 
     </main>
+
+    <footer class="border-t border-[#D9A066]/10 py-6 mt-auto">
+        <div class="max-w-7xl mx-auto px-4 text-center">
+            <p class="text-gray-600 text-xs">© 2026 ByteBrew Security Platform. All rights reserved.</p>
+        </div>
+    </footer>
 
     <script>
         const API_URL = 'http://localhost:5000/api';
@@ -143,22 +163,24 @@
                 const tbody = document.getElementById('logs-table-body');
                 
                 if (logs.length === 0) {
-                    tbody.innerHTML = '<tr><td class="px-6 py-4 text-gray-500" colspan="4">No attacks detected yet.</td></tr>';
+                    tbody.innerHTML = '<tr><td class="px-6 py-8 text-gray-500 text-center italic" colspan="4">No attacks detected yet.</td></tr>';
                     return;
                 }
 
                 tbody.innerHTML = logs.map(log => `
-                    <tr class="hover:bg-gray-800/30 transition-colors">
-                        <td class="px-6 py-4 text-gray-300 font-mono text-xs">${new Date(log.created_at).toLocaleString()}</td>
-                        <td class="px-6 py-4 text-blue-400 font-mono">${log.source_ip}</td>
+                    <tr class="hover:bg-[#D9A066]/5 transition-colors duration-150">
+                        <td class="px-6 py-4 text-gray-400 font-mono text-xs">${new Date(log.created_at).toLocaleString()}</td>
+                        <td class="px-6 py-4 text-[#D9A066] font-mono">${log.source_ip}</td>
                         <td class="px-6 py-4">
-                            <span class="px-2 py-1 text-xs font-semibold rounded-full bg-red-500/10 text-red-400 border border-red-500/20">
+                            <span class="px-2 py-1 text-xs font-semibold rounded bg-[#D85858]/10 text-[#D85858] border border-[#D85858]/20">
                                 ${log.type}
                             </span>
                         </td>
                         <td class="px-6 py-4 text-gray-300 font-mono text-xs">
-                            <span class="text-gray-500">User:</span> ${log.username} <br>
-                            <span class="text-gray-500">Pass:</span> ${log.password}
+                            <div class="flex flex-col space-y-1">
+                                <div><span class="text-gray-600 w-12 inline-block">USER:</span> <span class="text-white">${log.username}</span></div>
+                                <div><span class="text-gray-600 w-12 inline-block">PASS:</span> <span class="text-gray-400">${log.password}</span></div>
+                            </div>
                         </td>
                     </tr>
                 `).join('');
@@ -167,11 +189,9 @@
             }
         }
 
-        // Initial load
         fetchStats();
         fetchLogs();
 
-        // Poll every 3 seconds
         setInterval(() => {
             fetchStats();
             fetchLogs();

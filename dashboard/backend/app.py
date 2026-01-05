@@ -8,11 +8,19 @@ import logging
 app = Flask(__name__)
 CORS(app)
 
-# Configure logging
+from flask import Flask, request, jsonify
+from flask_cors import CORS
+import psycopg2
+import os
+import time
+import logging
+
+app = Flask(__name__)
+CORS(app)
+
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
-# Database connection
 def get_db_connection():
     conn = psycopg2.connect(
         host=os.environ.get('DB_HOST', 'controller-db'),
@@ -22,7 +30,6 @@ def get_db_connection():
     )
     return conn
 
-# Initialize DB
 def init_db():
     retries = 5
     while retries > 0:
@@ -98,11 +105,9 @@ def get_stats():
         conn = get_db_connection()
         cur = conn.cursor()
         
-        # Total attacks
         cur.execute("SELECT COUNT(*) FROM logs")
         total_attacks = cur.fetchone()[0]
         
-        # Unique attackers
         cur.execute("SELECT COUNT(DISTINCT source_ip) FROM logs")
         unique_attackers = cur.fetchone()[0]
         
@@ -117,7 +122,6 @@ def get_stats():
         return jsonify({"status": "error", "message": str(e)}), 500
 
 if __name__ == '__main__':
-    # Wait for DB to start
     time.sleep(5)
     init_db()
     app.run(host='0.0.0.0', port=5000)

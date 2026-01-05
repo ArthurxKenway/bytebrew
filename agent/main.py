@@ -54,8 +54,6 @@ class Server(paramiko.ServerInterface):
                     "password": password,
                     "timestamp": time.time()
                 }
-                # Fire and forget - don't block auth on logging
-                # In a real app, use a queue
                 threading.Thread(target=self.send_log, args=(payload,)).start()
             except Exception as e:
                 logger.error(f"Failed to send log: {e}")
@@ -77,10 +75,7 @@ def handle_connection(client, addr):
         transport.start_server(server=server)
         channel = transport.accept(20)
         if channel is None:
-            # No channel opened
             return
-        # We don't actually need to do anything with the channel since we fail auth
-        # But if we wanted to simulate a shell, we would do it here.
         transport.close()
     except Exception as e:
         logger.error(f"Connection error: {e}")
