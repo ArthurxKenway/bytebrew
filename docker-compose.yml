@@ -1,0 +1,40 @@
+version: '3.8'
+
+services:
+  # -----------------------------
+  # 1. THE BRAIN (Controller)
+  # -----------------------------
+  controller-db:
+    image: postgres:13
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: bytebrew_logs
+
+  # -----------------------------
+  # 2. THE TRAP (Agent)
+  # -----------------------------
+  agent:
+    build: ./agent
+    ports:
+      - "2222:2222" # Fake SSH port
+      - "8080:80"   # Fake Web port
+    environment:
+      - CONTROLLER_URL=http://dashboard-backend:5000
+    depends_on:
+      - controller-db
+
+  # -----------------------------
+  # 3. THE UI (Dashboard)
+  # -----------------------------
+  dashboard-backend:
+    build: ./dashboard/backend
+    ports:
+      - "5000:5000"
+    depends_on:
+      - controller-db
+
+  dashboard-frontend:
+    build: ./dashboard/frontend
+    ports:
+      - "3000:80"
