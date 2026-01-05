@@ -1,4 +1,4 @@
-version: '3.8'
+version: "3.8"
 
 services:
   # -----------------------------
@@ -18,9 +18,9 @@ services:
     build: ./agent
     ports:
       - "2222:2222" # Fake SSH port
-      - "8080:80"   # Fake Web port
+      - "8080:80" # Fake Web port
     environment:
-      - CONTROLLER_URL=http://dashboard-backend:5000
+      - CONTROLLER_URL=http://dashboard-backend:5000/api/logs
     depends_on:
       - controller-db
 
