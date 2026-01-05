@@ -1,12 +1,14 @@
-# 🛡️ ByteBrew: Distributed Deception Security Platform
+![bytebrew_logo](assets/bytebrew.png)
+
+# ByteBrew: Distributed Deception Security Platform
 
 > **A containerized, config-driven honeypot architecture for distributed threat intelligence.**
 
-## 📖 Overview
+## Overview
 
 ByteBrew is not just a script; it is a **Distributed Deception Platform**. It decouples the **Deception Agent** (the trap) from the **Control Plane** (the analysis). This allows security teams to deploy lightweight agents across hundreds of servers while managing intelligence from a single dashboard.
 
-### 🏗️ Architecture
+### Architecture
 
 The system follows a microservices approach:
 
@@ -16,7 +18,7 @@ The system follows a microservices approach:
 
 ---
 
-## 🚀 Quick Start (Deploy in 30 Seconds)
+## Quick Start (Deploy in 30 Seconds)
 
 ### Prerequisite
 
@@ -44,7 +46,7 @@ docker run -d \
 
 ---
 
-## ⚙️ Configuration
+## Configuration
 
 ByteBrew is **Config-Driven**. You do not need to change code to change the trap. Modify `config.yml`:
 
@@ -62,7 +64,7 @@ logging:
   verbosity: high
 ```
 
-## 🛠️ Technology Stack
+## Technology Stack
 
 - **Agent:** Python, Paramiko (SSH), Flask (Web Trap), Docker
 - **Controller:** n8n (Automation), PostgreSQL

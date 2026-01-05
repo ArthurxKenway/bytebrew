@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ByteBrew Security Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            900: '#1a202c',
+                            800: '#2d3748',
+                            700: '#4a5568',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { background-color: #0f172a; color: #e2e8f0; }
+        .glass-panel {
+            background: rgba(30, 41, 59, 0.7);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+    </style>
+</head>
+<body class="font-sans antialiased">
+
+    <!-- Navbar -->
+    <nav class="border-b border-gray-800 bg-gray-900/50 backdrop-blur-md sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex items-center">
+                    <span class="text-xl font-bold text-blue-500">🛡️ ByteBrew</span>
+                    <span class="ml-2 text-sm text-gray-400">Security Platform</span>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <div class="flex items-center space-x-2">
+                        <span class="h-2 w-2 rounded-full bg-green-500 animate-pulse"></span>
+                        <span class="text-xs text-green-400">System Active</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        
+        <!-- Stats Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+            <!-- Total Attacks -->
+            <div class="glass-panel rounded-xl p-6">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-sm font-medium text-gray-400">Total Attacks Detected</p>
+                        <p class="text-3xl font-bold text-white mt-1" id="total-attacks">--</p>
+                    </div>
+                    <div class="p-3 bg-red-500/10 rounded-lg">
+                        <svg class="w-6 h-6 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Unique Attackers -->
+            <div class="glass-panel rounded-xl p-6">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-sm font-medium text-gray-400">Unique Attackers</p>
+                        <p class="text-3xl font-bold text-white mt-1" id="unique-attackers">--</p>
+                    </div>
+                    <div class="p-3 bg-blue-500/10 rounded-lg">
+                        <svg class="w-6 h-6 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Active Agents -->
+            <div class="glass-panel rounded-xl p-6">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-sm font-medium text-gray-400">Active Agents</p>
+                        <p class="text-3xl font-bold text-white mt-1">1</p>
+                    </div>
+                    <div class="p-3 bg-green-500/10 rounded-lg">
+                        <svg class="w-6 h-6 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14M5 12a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v4a2 2 0 01-2 2M5 12a2 2 0 00-2 2v4a2 2 0 002 2h14a2 2 0 002-2v-4a2 2 0 00-2-2m-2-4h.01M17 16h.01"></path></svg>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Live Feed -->
+        <div class="glass-panel rounded-xl overflow-hidden">
+            <div class="px-6 py-4 border-b border-gray-700 flex justify-between items-center">
+                <h3 class="text-lg font-semibold text-white">Live Threat Feed</h3>
+                <span class="text-xs text-gray-500 uppercase tracking-wider">Real-time</span>
+            </div>
+            <div class="overflow-x-auto">
+                <table class="w-full text-left">
+                    <thead class="bg-gray-800/50 text-gray-400 text-xs uppercase">
+                        <tr>
+                            <th class="px-6 py-3">Timestamp</th>
+                            <th class="px-6 py-3">Source IP</th>
+                            <th class="px-6 py-3">Type</th>
+                            <th class="px-6 py-3">Credentials</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-gray-700 text-sm" id="logs-table-body">
+                        <!-- Rows will be injected here -->
+                        <tr>
+                            <td class="px-6 py-4 text-gray-500" colspan="4">Loading logs...</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </main>
+
+    <script>
+        const API_URL = 'http://localhost:5000/api';
+
+        async function fetchStats() {
+            try {
+                const response = await fetch(`${API_URL}/stats`);
+                const data = await response.json();
+                document.getElementById('total-attacks').innerText = data.total_attacks;
+                document.getElementById('unique-attackers').innerText = data.unique_attackers;
+            } catch (e) {
+                console.error("Failed to fetch stats", e);
+            }
+        }
+
+        async function fetchLogs() {
+            try {
+                const response = await fetch(`${API_URL}/logs`);
+                const logs = await response.json();
+                const tbody = document.getElementById('logs-table-body');
+                
+                if (logs.length === 0) {
+                    tbody.innerHTML = '<tr><td class="px-6 py-4 text-gray-500" colspan="4">No attacks detected yet.</td></tr>';
+                    return;
+                }
+
+                tbody.innerHTML = logs.map(log => `
+                    <tr class="hover:bg-gray-800/30 transition-colors">
+                        <td class="px-6 py-4 text-gray-300 font-mono text-xs">${new Date(log.created_at).toLocaleString()}</td>
+                        <td class="px-6 py-4 text-blue-400 font-mono">${log.source_ip}</td>
+                        <td class="px-6 py-4">
+                            <span class="px-2 py-1 text-xs font-semibold rounded-full bg-red-500/10 text-red-400 border border-red-500/20">
+                                ${log.type}
+                            </span>
+                        </td>
+                        <td class="px-6 py-4 text-gray-300 font-mono text-xs">
+                            <span class="text-gray-500">User:</span> ${log.username} <br>
+                            <span class="text-gray-500">Pass:</span> ${log.password}
+                        </td>
+                    </tr>
+                `).join('');
+            } catch (e) {
+                console.error("Failed to fetch logs", e);
+            }
+        }
+
+        // Initial load
+        fetchStats();
+        fetchLogs();
+
+        // Poll every 3 seconds
+        setInterval(() => {
+            fetchStats();
+            fetchLogs();
+        }, 3000);
+    </script>
+</body>
+</html>
