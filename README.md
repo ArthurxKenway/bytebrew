@@ -1,4 +1,4 @@
-![bytebrew_logo](assets/bytebrew.png)
+![bytebrew_logo](assets/bytebrew_logo.png)
 
 # ByteBrew: Distributed Deception Security Platform
 
